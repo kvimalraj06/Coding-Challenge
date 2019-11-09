@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>MovieWiki</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        background-color: #4775d1;
+      }
+      #top {
+        margin: 0 auto;
+        position: relative;
+        left: 652px;
+        top: 250px;
+        font-size: 50px;
+		color:white;
+		
+      }
+      #center {
+        width: 250px;
+        height: 50px;
+        position: relative;
+        top: 250px;
+        left: 650px;
+      }
+      #box {
+        width: 250px;
+        height: 30px;
+        font-size: 20px;
+        float: left;
+      }
+      #searchIcon {
+        padding: 2px 0 0 3px;
+        width: 40px;
+        height: 25px;
+      }
+      #disp {
+        position: relative;
+        top: 70px;
+        border-radius: 20px;
+        width: 200px;
+        right: 215px;
+      }
+	  #W{
+	  font-size:110%;
+	  color: orangered;
+	  }
+    </style>
+  </head>
+  <body>
+    <div id="top">Movie<span id = "W"><strong>Wiki</strong></span></div>
+    <label id="center" -
+      ><input id="box" type="text" placeholder="  Enter movie name" />
+      <img id="searchIcon" src="images/search.png" />
+      <br />
+      <a id="next" href=""><img id="disp"/></a>
+    </label>
+    <script type="text/javascript">
+      async function getOmdb(Url) {
+        const response = await fetch(Url);//to fetch from API
+        const myJson = await response.json();
+		if (myJson.Response == "True"){
+			document.getElementById("disp").src = myJson.Poster;
+			document.getElementById("next").href = "next.html?name=" + myJson.Title;
+		}
+		else{
+		document.getElementById("disp").src = "images/error.png";
+		
+		}
+	}
+      document.getElementById("searchIcon").onclick = function() {
+        var movie = document.getElementById("box").value;
+        var Url = "http://www.omdbapi.com/?apikey=4a249f8d&t=" + movie;
+        getOmdb(Url);
+      }
+    </script>
+  </body>
+</html>
